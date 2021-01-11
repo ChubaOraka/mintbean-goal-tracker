@@ -35,7 +35,7 @@ export class Login extends React.Component {
                     </div>
                     <div className="input-wrapper">
                         <i className="icon password" />
-                        <input className="textbox" type="text" name="password" id="password" placeholder="password" />
+                        <input className="textbox" type="password" name="password" id="password" placeholder="password" />
                     </div>
                 </div>
                 <div className="login-options">
