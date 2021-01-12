@@ -1,4 +1,5 @@
 import React from 'react';
+import './todoList.css'
 
 export class TodoList extends React.Component{
     constructor(){
@@ -55,7 +56,7 @@ export class TodoList extends React.Component{
             ){
                 if (elem.status==='passive'){items_left++;}
                 return(
-                    <li key={i} id={task_id} className={elem.status}>
+                    <li key={i} id={task_id} className={`${elem.status} noselect`}>
                         <span className="id">{i+1}</span>
                         <span className="title">{elem.text}</span>
                         <span className="type" onClick={this.done} />
