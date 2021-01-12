@@ -89,6 +89,8 @@ class TodoApp extends React.Component {
      * @param task
      */
     addTask(task) {
+        if (!/\S/.test(task))
+            return
         let updatedList = this.state.tasks;
         updatedList.push({text: task, status: 'passive'});
         this.setState({tasks: updatedList});
