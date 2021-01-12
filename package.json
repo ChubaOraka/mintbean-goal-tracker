@@ -1,14 +1,14 @@
 {
   "name": "react-todo-example",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
-    "name": "Volkan Şengül",
-    "email": "iletisim@volkansengul.com",
-    "url": "http://volkansengul.com"
+    "name": "Chuba Oraka",
+    "email": "chubaoraka@users.noreply.github.com",
+    "url": "https://chubaoraka.github.io"
   },
-  "repository" :
-  { "type" : "git",
-    "url" : "https://github.com/volkansengul/react-example-todo.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChubaOraka/react-example-todo"
   },
   "dependencies": {
     "react": "^16.2.0",
