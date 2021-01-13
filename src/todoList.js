@@ -7,6 +7,7 @@ export class TodoList extends React.Component{
         this.remove = this.remove.bind(this);
         this.done = this.done.bind(this);
         this.changeList = this.changeList.bind(this);
+        this.editTodoItem = this.editTodoItem.bind(this);
         this.state = {activeList:'All'};
     }
 
@@ -45,6 +46,18 @@ export class TodoList extends React.Component{
         this.setState({activeList : activeLi.innerText});
     }
 
+    /**
+     * This function allows you to edit the todo item
+     * @param e
+     */
+    editTodoItem(e, item){
+        e.persist()
+        if (e.target.parentNode.classList.contains("passive")) {
+            e.target.contentEditable = true
+            e.target.focus()
+        }
+    }
+
     render(){
         let items_left = 0;
         const items = this.props.myList.map((elem,i) =>{
@@ -58,7 +71,9 @@ export class TodoList extends React.Component{
                 return(
                     <li key={i} id={task_id} className={`${elem.status} noselect`}>
                         <span className="id">{i+1}</span>
-                        <span className="title">{elem.text}</span>
+                        <span className="title" onDoubleClick={this.editTodoItem}>
+                            {elem.text}
+                        </span>
                         <span className="type" onClick={this.done} />
                         <span className="delete" onClick={this.remove}></span>
                     </li>
