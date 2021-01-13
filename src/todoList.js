@@ -10,7 +10,7 @@ export class TodoList extends React.Component{
         this.editTodoItem = this.editTodoItem.bind(this);
         this.updateTodoItem = this.updateTodoItem.bind(this);
         this.handleKeys = this.handleKeys.bind(this);
-        this.state = {activeList:'All'};
+        this.state = {activeList:'All', isTaskTitleEditable: false, itemKey: ''};
     }
 
     /**
@@ -56,6 +56,7 @@ export class TodoList extends React.Component{
         e.persist()
         if (e.target.parentNode.classList.contains("passive")) {
             e.target.contentEditable = true
+            this.setState({isTaskTitleEditable: e.target.contentEditable, itemKey: e.target.parentNode.id})
             e.target.focus()
         }
     }
@@ -68,6 +69,7 @@ export class TodoList extends React.Component{
         e.persist()
         e.target.contentEditable = false
         this.props.updateTask(e.target.innerText, e.target.parentNode.id)
+        this.setState({isTaskTitleEditable: false, itemKey: ''})
     }
 
     /**
@@ -82,6 +84,7 @@ export class TodoList extends React.Component{
         if (e.key === "Escape"){
             e.target.innerText = this.props.myList[e.target.parentNode.id.replace('task_', '')].text
             e.target.contentEditable = false
+            this.setState({isTaskTitleEditable: e.target.contentEditable, itemKey: e.target.parentNode.id})
         }
     }
 
@@ -96,7 +99,9 @@ export class TodoList extends React.Component{
             ){
                 if (elem.status==='passive'){items_left++;}
                 return(
-                    <li key={i} id={task_id} className={`${elem.status} noselect`}>
+                    <li key={i} id={task_id} 
+                        className={`${elem.status} ${ (this.state.isTaskTitleEditable && task_id === this.state.itemKey) ? '' : 'noselect'}`.trim()} 
+                        title="Double click to edit">
                         <span className="id">{i+1}</span>
                         <span className="title" onDoubleClick={this.editTodoItem} onBlur={this.updateTodoItem}
                             onKeyDown={this.handleKeys}>
