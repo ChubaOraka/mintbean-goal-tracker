@@ -92,7 +92,7 @@ class TodoApp extends React.Component {
         if (!/\S/.test(task))
             return
         let updatedList = this.state.tasks;
-        updatedList.push({text: task, status: 'passive'});
+        updatedList.push({text: task.trim(), status: 'passive'});
         this.setState({tasks: updatedList});
         this.updateLocalStorage(updatedList);
     }
