@@ -31,6 +31,7 @@ class TodoApp extends React.Component {
         };
         this.addTask = this.addTask.bind(this);
         this.removeTask = this.removeTask.bind(this);
+        this.updateTask = this.updateTask.bind(this);
         this.doneTask = this.doneTask.bind(this);
         this.doLogin = this.doLogin.bind(this);
     }
@@ -97,6 +98,19 @@ class TodoApp extends React.Component {
         this.updateLocalStorage(updatedList);
     }
 
+    /**
+     * update task to todolist
+     * @param task
+     * @param task_id
+     */
+    updateTask(task, task_id) {
+        if (!/\S/.test(task))
+            return;
+        let updatedList = this.state.tasks;
+        updatedList.splice(task_id.replace('task_', ''), 1, {text: task.trim(), status: 'passive'});
+        this.setState({tasks: updatedList});
+        this.updateLocalStorage(updatedList);
+    }
 
     /**
      * task_id ile eşleşen görevi listeden siler
@@ -155,7 +169,7 @@ class TodoApp extends React.Component {
                 <div>
                     <Header loginData={TodoApp.getUserSessionData}/>
                     <TodoForm addTask={this.addTask}/>
-                    <TodoList myList={this.state.tasks} addTask={this.addTask} removeTask={this.removeTask}
+                    <TodoList myList={this.state.tasks} addTask={this.addTask} updateTask={this.updateTask} removeTask={this.removeTask}
                               doneTask={this.doneTask}/>
                     <Footer/>
                 </div>

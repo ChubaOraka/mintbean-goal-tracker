@@ -8,6 +8,8 @@ export class TodoList extends React.Component{
         this.done = this.done.bind(this);
         this.changeList = this.changeList.bind(this);
         this.editTodoItem = this.editTodoItem.bind(this);
+        this.updateTodoItem = this.updateTodoItem.bind(this);
+        this.handleKeys = this.handleKeys.bind(this);
         this.state = {activeList:'All'};
     }
 
@@ -58,6 +60,31 @@ export class TodoList extends React.Component{
         }
     }
 
+    /**
+     * This function updates the todo item
+     * @param e
+     */
+    updateTodoItem(e){
+        e.persist()
+        e.target.contentEditable = false
+        this.props.updateTask(e.target.innerText, e.target.parentNode.id)
+    }
+
+    /**
+     * This function updates the todo item
+     * @param e
+     */
+    handleKeys(e){
+        e.persist()
+        console.log("Event key: ", e.key, "\nEvent code: ", e.code, "\nEvent: ", e)
+        if (e.key === "Enter")
+            this.updateTodoItem(e)
+        if (e.key === "Escape"){
+            e.target.innerText = this.props.myList[e.target.parentNode.id.replace('task_', '')].text
+            e.target.contentEditable = false
+        }
+    }
+
     render(){
         let items_left = 0;
         const items = this.props.myList.map((elem,i) =>{
@@ -71,7 +98,8 @@ export class TodoList extends React.Component{
                 return(
                     <li key={i} id={task_id} className={`${elem.status} noselect`}>
                         <span className="id">{i+1}</span>
-                        <span className="title" onDoubleClick={this.editTodoItem}>
+                        <span className="title" onDoubleClick={this.editTodoItem} onBlur={this.updateTodoItem}
+                            onKeyDown={this.handleKeys}>
                             {elem.text}
                         </span>
                         <span className="type" onClick={this.done} />
