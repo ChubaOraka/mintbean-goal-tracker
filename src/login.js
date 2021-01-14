@@ -5,6 +5,7 @@ export class Login extends React.Component {
     constructor() {
         super();
         this.doLogin = this.doLogin.bind(this);
+        this.handleReturn = this.handleReturn.bind(this);
     }
 
     /**
@@ -22,6 +23,8 @@ export class Login extends React.Component {
 
     }
 
+    handleReturn = (e) => { e.keyCode === 13 ? this.doLogin() : true }
+
     render() {
         return (
             <div className="content">
@@ -31,11 +34,11 @@ export class Login extends React.Component {
                 <div className="login type1">
                     <div className="input-wrapper">
                         <i className="icon username" />
-                        <input className="textbox" type="text"  name="username" id="username" placeholder="username or email" />
+                        <input className="textbox" type="text"  name="username" id="username" placeholder="username or email" onKeyUp={this.handleReturn}/>
                     </div>
                     <div className="input-wrapper">
                         <i className="icon password" />
-                        <input className="textbox" type="password" name="password" id="password" placeholder="password" />
+                        <input className="textbox" type="password" name="password" id="password" placeholder="password" onKeyUp={this.handleReturn} />
                     </div>
                 </div>
                 <div className="login-options">
